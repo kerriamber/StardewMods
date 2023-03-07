@@ -71,7 +71,7 @@ namespace Pathoschild.Stardew.Automate.Framework.Storage
                 nameof(AutomateContainerPreference.Allow) => AutomateContainerPreference.Allow,
                 nameof(AutomateContainerPreference.Prefer) => AutomateContainerPreference.Prefer,
                 nameof(AutomateContainerPreference.Disable) => AutomateContainerPreference.Disable,
-                _ => AutomateContainerPreference.Allow
+                _ => AutomateContainerPreference.Disable
             };
         }
     }
