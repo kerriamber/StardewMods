@@ -31,7 +31,7 @@ namespace Pathoschild.Stardew.ChestsAnywhere.Framework
         public bool IsIgnored { get; set; }
 
         /// <summary>Whether Automate should take items from this container.</summary>
-        public AutomateContainerPreference AutomateTakeItems { get; set; } = AutomateContainerPreference.Allow;
+        public AutomateContainerPreference AutomateTakeItems { get; set; } = AutomateContainerPreference.Disable;
 
         /// <summary>Whether Automate should put items in this container.</summary>
         public AutomateContainerPreference AutomateStoreItems { get; set; } = AutomateContainerPreference.Allow;
@@ -62,7 +62,7 @@ namespace Pathoschild.Stardew.ChestsAnywhere.Framework
             this.Name = data.ReadField($"{prefix}/{nameof(ContainerData.Name)}");
             this.Order = data.ReadField($"{prefix}/{nameof(ContainerData.Order)}", int.Parse);
             this.AutomateStoreItems = data.ReadField(AutomateContainerHelper.StoreItemsKey, p => (AutomateContainerPreference)Enum.Parse(typeof(AutomateContainerPreference), p), defaultValue: AutomateContainerPreference.Allow);
-            this.AutomateTakeItems = data.ReadField(AutomateContainerHelper.TakeItemsKey, p => (AutomateContainerPreference)Enum.Parse(typeof(AutomateContainerPreference), p), defaultValue: AutomateContainerPreference.Allow);
+            this.AutomateTakeItems = data.ReadField(AutomateContainerHelper.TakeItemsKey, p => (AutomateContainerPreference)Enum.Parse(typeof(AutomateContainerPreference), p), defaultValue: AutomateContainerPreference.Disable);
             this.AutomatePreventRemovingStacks = data.ReadField(AutomateContainerHelper.PreventRemovingStacksKey, bool.Parse);
         }
 
@@ -79,7 +79,7 @@ namespace Pathoschild.Stardew.ChestsAnywhere.Framework
                 .WriteField($"{prefix}/{nameof(ContainerData.Name)}", !this.HasDefaultDisplayName() ? this.Name : null)
                 .WriteField($"{prefix}/{nameof(ContainerData.Order)}", this.Order != 0 ? this.Order?.ToString(CultureInfo.InvariantCulture) : null)
                 .WriteField(AutomateContainerHelper.StoreItemsKey, this.AutomateStoreItems != AutomateContainerPreference.Allow ? this.AutomateStoreItems.ToString() : null)
-                .WriteField(AutomateContainerHelper.TakeItemsKey, this.AutomateTakeItems != AutomateContainerPreference.Allow ? this.AutomateTakeItems.ToString() : null)
+                .WriteField(AutomateContainerHelper.TakeItemsKey, this.AutomateTakeItems != AutomateContainerPreference.Disable ? this.AutomateTakeItems.ToString() : null)
                 .WriteField(AutomateContainerHelper.PreventRemovingStacksKey, this.AutomatePreventRemovingStacks ? "true" : null);
         }
 
@@ -97,7 +97,7 @@ namespace Pathoschild.Stardew.ChestsAnywhere.Framework
             this.Order = null;
             this.IsIgnored = false;
             this.Category = null;
-            this.AutomateTakeItems = AutomateContainerPreference.Allow;
+            this.AutomateTakeItems = AutomateContainerPreference.Disable;
             this.AutomateStoreItems = AutomateContainerPreference.Allow;
             this.AutomatePreventRemovingStacks = false;
         }
